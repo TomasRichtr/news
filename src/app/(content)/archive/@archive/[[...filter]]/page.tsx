@@ -1,5 +1,6 @@
 import {isEmpty} from "lodash";
 import Link from "next/link";
+import React from "react";
 
 import NewsList from "@/components/news/newsList";
 import {DUMMY_NEWS} from "@/constants/dummyNews";
@@ -17,7 +18,7 @@ export default async function YearNewsPage({
 }: NewsDetailPageProps) {
   const {
     filter
-  } = await params;
+  } = React.use(params);
 
   const selectedYear = +filter?.[0];
   const selectedMonth = filter?.[1] && +filter[1];
@@ -65,7 +66,7 @@ export default async function YearNewsPage({
                   key={link}
                 >
                   <Link
-                    href={`/archive/${href}`}
+                    href={`/src/app/(content)/archive/${href}`}
                   >
                     {link}
                   </Link>

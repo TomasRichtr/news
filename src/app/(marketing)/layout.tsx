@@ -1,4 +1,3 @@
-import "@/app/globals.css";
 import {ReactNode} from "react";
 
 export const metadata = {
@@ -6,16 +5,14 @@ export const metadata = {
   description: "Learn how to route to different pages.",
 };
 
-export default function RootLayout({
+export default function ContentLayout({
   children
-}: {
-  children: ReactNode;
-}) {
+}: {children: ReactNode}) {
   return (
-    <html
-      lang="en"
+    <div
+      id='page'
     >
-      <body>{children}</body>
-    </html>
+      {children}
+    </div>
   );
 }

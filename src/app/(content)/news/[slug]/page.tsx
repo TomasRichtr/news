@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {notFound} from "next/navigation";
+import React from "react";
 
 import {DUMMY_NEWS} from "@/constants/dummyNews";
 import {ROUTE} from "@/constants/route";
@@ -15,7 +16,7 @@ export default async function NewsDetailPage ({
 }: NewsDetailPageProps) {
   const {
     slug
-  } = await params;
+  } = React.use(params);
 
   const news = DUMMY_NEWS.find((news) => news.slug === slug);
 

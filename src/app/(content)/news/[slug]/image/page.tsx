@@ -1,4 +1,5 @@
 import {notFound} from "next/navigation";
+import React from "react";
 
 import {DUMMY_NEWS} from "@/constants/dummyNews";
 
@@ -13,7 +14,7 @@ export default async function ImagePage({
 }: NewsDetailPageProps) {
   const {
     slug
-  } = await params;
+  } = React.use(params);
 
   const news = DUMMY_NEWS.find((news) => news.slug === slug);
 
