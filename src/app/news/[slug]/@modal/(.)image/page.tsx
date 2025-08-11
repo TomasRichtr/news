@@ -1,8 +1,6 @@
-import Link from "next/link";
 import {notFound} from "next/navigation";
 
 import {DUMMY_NEWS} from "@/constants/dummyNews";
-import {ROUTE} from "@/constants/route";
 
 interface NewsDetailPageProps {
     params: Promise<{
@@ -10,7 +8,7 @@ interface NewsDetailPageProps {
     }>;
 }
 
-export default async function NewsDetailPage ({
+export default async function InterceptedImagePage({
   params
 }: NewsDetailPageProps) {
   const {
@@ -24,28 +22,23 @@ export default async function NewsDetailPage ({
   }
 
   return (
-    <article
-      className="news-article"
-    >
-      <header>
-        <Link
-          href={ROUTE.NEWS_IMAGE(slug)}
+    <>
+      <div
+        className="model-backdrop"
+      />
+      <dialog
+        className="modal"
+        open
+      >
+        <div
+          className="fullscreen-image"
         >
           <img
             src={`/images/news/${news.image}`}
             alt="news"
           />
-        </Link>
-        <h1>{news.title}</h1>
-        <time
-          dateTime={news.date}
-        >
-          {news.date}
-        </time>
-      </header>
-      <main>
-        <p>{news.content}</p>
-      </main>
-    </article>
+        </div>
+      </dialog>
+    </>
   );
 }

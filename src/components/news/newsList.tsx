@@ -1,12 +1,18 @@
 import NewsItem from "@/components/news/newsItem";
-import {DUMMY_NEWS} from "@/constants/dummyNews";
+import {News} from "@/types/news";
 
-export default function NewsList() {
+interface NewsListProps {
+  newsList: News[];
+}
+
+export default function NewsList({
+  newsList
+}: NewsListProps) {
   return (
     <ul
       className="news-list"
     >
-      {DUMMY_NEWS.map((news ) => (
+      {newsList.map((news ) => (
         <NewsItem
           {...news}
           key={news.slug}

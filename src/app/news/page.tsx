@@ -1,4 +1,5 @@
 import NewsList from "@/components/news/newsList";
+import {DUMMY_NEWS} from "@/constants/dummyNews";
 
 
 export default function NewsPage() {
@@ -9,8 +10,11 @@ export default function NewsPage() {
           News Page
         </h1>
       </header>
+        
       <main>
-        <NewsList />
+        <NewsList
+          newsList={DUMMY_NEWS}
+        />
       </main>
     </>
   );
