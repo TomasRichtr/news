@@ -1,7 +1,7 @@
 "use client";
 
 export default function ArchiveFilterError({
-  error
+  error,
 }: { error: Error }) {
   return (
     <div

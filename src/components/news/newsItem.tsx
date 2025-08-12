@@ -1,7 +1,11 @@
 import Link from "next/link";
 
-import {ROUTE} from "@/constants/route";
-import {News} from "@/types/news";
+import {
+  ROUTE,
+} from "@/constants/route";
+import {
+  News,
+} from "@/types/news";
 
 import classes from "./newsItem.module.css";
 

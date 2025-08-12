@@ -1,4 +1,6 @@
-import {NextResponse} from "next/server";
+import {
+  NextResponse,
+} from "next/server";
 
 export function middleware(request: Request) {
   console.log(request);
@@ -6,5 +8,5 @@ export function middleware(request: Request) {
 }
 
 export const config = {
-  matcher: "/news/"
+  matcher: "/news/",
 };

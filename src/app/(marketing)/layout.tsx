@@ -1,4 +1,6 @@
-import {ReactNode} from "react";
+import {
+  ReactNode,
+} from "react";
 
 export const metadata = {
   title: "Next.js Page Routing & Rendering",
@@ -6,7 +8,7 @@ export const metadata = {
 };
 
 export default function ContentLayout({
-  children
+  children,
 }: {children: ReactNode}) {
   return (
     <div

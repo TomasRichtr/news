@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 import logo from "@/assets/logo.jpg";
-import {ROUTE} from "@/constants/route";
+import {
+  ROUTE,
+} from "@/constants/route";
 
 export default function HomePage() {
   return (

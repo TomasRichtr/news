@@ -1,11 +1,21 @@
-import {isEmpty} from "lodash";
+import {
+  isEmpty,
+} from "lodash";
 import Link from "next/link";
-import React from "react";
+import React, {
+  Suspense,
+} from "react";
 
 import NewsList from "@/components/news/newsList";
-import {DUMMY_NEWS} from "@/constants/dummyNews";
-import {News} from "@/types/news";
-import {getAvailableNewsMonths, getAvailableNewsYears, getNewsForYear, getNewsForYearAndMonth} from "@/utils/news";
+import {
+  ROUTE,
+} from "@/constants/route";
+import {
+  getAvailableNewsMonths, getAvailableNewsYears, getNewsForYear, getNewsForYearAndMonth,
+} from "@/lib/news";
+import {
+  News,
+} from "@/types/news";
 
 interface NewsDetailPageProps {
     params: Promise<{
@@ -13,26 +23,14 @@ interface NewsDetailPageProps {
     }>;
 }
 
-export default async function YearNewsPage({
-  params
-}: NewsDetailPageProps) {
-  const {
-    filter
-  } = React.use(params);
-
-  const selectedYear = +filter?.[0];
-  const selectedMonth = filter?.[1] && +filter[1];
-
-  let news: News[] = DUMMY_NEWS;
-  let links = getAvailableNewsYears();
-
-  if (selectedYear && !selectedMonth) {
-    news = getNewsForYear(selectedYear);
-    links = getAvailableNewsMonths(selectedYear);
-  }
-  if (selectedYear && selectedMonth) {
-    news = getNewsForYearAndMonth(selectedYear, selectedMonth);
-    links = [];
+async function FilteredNews({
+  year, month,
+}: {year: string, month?: string}) {
+  let news: News[] = [];
+  if (year && !month) {
+    news = await getNewsForYear(year);
+  } else if (year && month) {
+    news = await getNewsForYearAndMonth(year, month);
   }
 
   let newsContent = <p>No news found...</p>;
@@ -45,38 +43,86 @@ export default async function YearNewsPage({
     );
   }
 
+  return newsContent;
+}
+
+async function FilteredNewsHeader({
+  year, month,
+}: {year: string, month?: string}) {
+  const availableYears = getAvailableNewsYears();
+  const availableMonths = await getAvailableNewsMonths(year);
+
+  let links = availableYears;
+
   if (
-    selectedYear && !getAvailableNewsYears().includes(selectedYear) ||
-      selectedMonth && !selectedMonth && getAvailableNewsMonths(selectedYear).includes(selectedMonth)
+    year && !availableYears.includes(year) ||
+      month && !month && availableMonths.includes(month)
   ) {
     throw new Error("Invalid filter");
   }
 
+
+  if (year && !month) {
+    links = await getAvailableNewsMonths(year);
+  }
+  if (year && month) {
+    links = [];
+  }
+
+  return (
+    <header
+      id="archive-header"
+    >
+      <nav>
+        <ul>
+          {links.map((link) => {
+            const filter = year ? `${year}/${link}` : `${link}`;
+            return (
+              <li
+                key={link}
+              >
+                <Link
+                  href={ROUTE.ARCHIVE_DETAIL(filter)}
+                >
+                  {link}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </header>
+  );
+}
+
+export default function FilteredNewsPage({
+  params,
+}: NewsDetailPageProps) {
+  const {
+    filter,
+  } = React.use(params);
+
+  const selectedYear = filter?.[0];
+  const selectedMonth = filter?.[1] && filter[1];
+
   return (
     <>
-      <header
-        id="archive-header"
+      <Suspense
+        fallback={<p>Loading filter...</p>}
       >
-        <nav>
-          <ul>
-            {links.map((link) => {
-              const href = selectedYear ? `${selectedYear}/${link}` : `${link}`;
-              return (
-                <li
-                  key={link}
-                >
-                  <Link
-                    href={`/src/app/(content)/archive/${href}`}
-                  >
-                    {link}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </header>
-      {newsContent}
+        <FilteredNewsHeader
+          year={selectedYear}
+          month={selectedMonth}
+        />
+      </Suspense>
+      <Suspense
+        fallback={<p>Loading news...</p>}
+      >
+        <FilteredNews
+          year={selectedYear}
+          month={selectedMonth}
+        />
+      </Suspense>
     </>
   );
 }

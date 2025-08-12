@@ -1,8 +1,11 @@
 import NewsList from "@/components/news/newsList";
-import {DUMMY_NEWS} from "@/constants/dummyNews";
-
+import {
+  getAllNews,
+} from "@/lib/news";
 
 export default function NewsPage() {
+  const news = getAllNews();
+
   return (
     <>
       <header>
@@ -10,10 +13,10 @@ export default function NewsPage() {
           News Page
         </h1>
       </header>
-        
+
       <main>
         <NewsList
-          newsList={DUMMY_NEWS}
+          newsList={news}
         />
       </main>
     </>

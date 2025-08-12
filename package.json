@@ -21,8 +21,8 @@
     "xss": "^1.0.15"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
     "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/better-sqlite3": "^7.6.13",
     "@types/lodash": "^4.17.20",
     "@types/node": "^20",

@@ -1,5 +1,7 @@
-import NavLink from "@/components/layout/NavLInk";
-import {ROUTE} from "@/constants/route";
+import NavLink from "@/components/layout/navLink";
+import {
+  ROUTE,
+} from "@/constants/route";
 
 export default function MainHeaderLinks () {
   return (

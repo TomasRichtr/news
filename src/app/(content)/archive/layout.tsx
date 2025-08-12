@@ -1,4 +1,6 @@
-import {ReactNode} from "react";
+import {
+  ReactNode,
+} from "react";
 
 interface ArchiveLayoutProps {
     archive: ReactNode;
@@ -6,7 +8,7 @@ interface ArchiveLayoutProps {
 }
 
 export default function ArchiveLayout({
-  archive, latest
+  archive, latest,
 }: ArchiveLayoutProps) {
   return (
     <div>

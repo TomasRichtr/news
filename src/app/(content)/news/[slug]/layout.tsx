@@ -1,7 +1,9 @@
-import {ReactNode} from "react";
+import {
+  ReactNode,
+} from "react";
 
 export default function NewsDetailLayout({
-  children, modal
+  children, modal,
 }: {children: ReactNode, modal: ReactNode}) {
   return (
     <>

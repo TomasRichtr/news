@@ -1,10 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import {
+  usePathname,
+} from "next/navigation";
 
 import MainHeaderLinks from "@/components/layout/mainHeaderLinks";
-import {ROUTE} from "@/constants/route";
+import {
+  ROUTE,
+} from "@/constants/route";
 
 const MainHeader = () => {
   const path = usePathname();

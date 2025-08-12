@@ -1,7 +1,11 @@
-import {notFound} from "next/navigation";
+import {
+  notFound,
+} from "next/navigation";
 import React from "react";
 
-import {DUMMY_NEWS} from "@/constants/dummyNews";
+import {
+  getNewsItem,
+} from "@/lib/news";
 
 interface NewsDetailPageProps {
     params: Promise<{
@@ -9,14 +13,14 @@ interface NewsDetailPageProps {
     }>;
 }
 
-export default async function ImagePage({
-  params
+export default function ImagePage({
+  params,
 }: NewsDetailPageProps) {
   const {
-    slug
+    slug,
   } = React.use(params);
 
-  const news = DUMMY_NEWS.find((news) => news.slug === slug);
+  const news = getNewsItem(slug);
 
   if (!news) {
     notFound();
